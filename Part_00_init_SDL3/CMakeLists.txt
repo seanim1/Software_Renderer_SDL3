@@ -1,0 +1,2 @@
+add_executable(00_init_SDL3 main.cpp)
+target_link_libraries(00_init_SDL3 PRIVATE sdl3_deps)

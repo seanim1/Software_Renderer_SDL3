@@ -39,3 +39,14 @@
 
 # debug information files
 *.dwo
+
+# CMake build directories
+build/
+
+# CMake cache files
+CMakeCache.txt
+CMakeFiles/
+
+# Vendored third-party (fetched by setup scripts)
+third_party/
+imgui.ini
