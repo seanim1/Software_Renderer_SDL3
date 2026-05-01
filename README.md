@@ -8,8 +8,8 @@ Cross-platform triangle rendering with software rasterization.
 
 ### Setup (run once)
 ```bash
-chmod +x setup.sh
-./setup.sh
+chmod +x setup_linux.sh
+./setup_linux.sh
 ```
 
 ### Build (every time you modify code)
@@ -30,6 +30,7 @@ cmake --build build --target 02_vk_instance
 ### Clean
 ```bash
 rm -rf build
+rm -rf third_party
 ```
 
 ---

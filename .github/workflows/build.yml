@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: setup
-        run: bash setup.sh
+        run: bash setup_linux.sh
       - name: build
         run: cmake --build build
 
@@ -17,10 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: setup
-        shell: powershell
         run: powershell -ExecutionPolicy Bypass -File setup.ps1
       - name: build
         run: cmake --build build --config Debug
       - name: copy dlls
-        shell: powershell
         run: powershell -ExecutionPolicy Bypass -File copy-dlls.ps1
