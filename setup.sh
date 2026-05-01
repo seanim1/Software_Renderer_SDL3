@@ -12,11 +12,19 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         libxrandr-dev libxinerama-dev libxcursor-dev \
         libxi-dev libxss-dev libxkbcommon-dev \
         libwayland-dev wayland-protocols
+
+    echo "Installing Vulkan SDK..."
+    sudo apt-get install -y vulkan-tools libvulkan-dev libvulkan1
+    
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "macOS (M1+) detected"
     if ! command -v cmake &> /dev/null; then
         brew install cmake
     fi
+    
+    echo "Installing Vulkan SDK..."
+    brew install vulkan-headers vulkan-loader
+    
 else
     echo "Unsupported OS"
     exit 1
@@ -42,7 +50,3 @@ cmake --build . -j
 cd - > /dev/null
 
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-
-echo ""
-echo "Build:  cmake --build build"
-echo "Run:    ./build/hello_triangle"

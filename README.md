@@ -2,7 +2,7 @@
 
 Cross-platform triangle rendering with software rasterization.
 
-**Tested:** Linux✅, macOS(M1+), Windows, iOS
+**Tested:** Linux✅, macOS(M1+), Windows✅, iOS
 
 ## Linux / macOS (M1+)
 
@@ -17,12 +17,14 @@ chmod +x setup.sh
 cmake --build build
 cmake --build build --target 00_init_SDL3
 cmake --build build --target 01_window
+cmake --build build --target 02_vk_instance
 ```
 
 ### Run
 ```bash
 ./build/Part_00_init_SDL3/00_init_SDL3
 ./build/Part_01_window/01_window
+./build/Part_02_vk_instance/02_vk_instance
 ```
 
 ### Clean
@@ -31,4 +33,39 @@ rm -rf build
 ```
 
 ---
+## Windows
 
+### Setup (run once)
+Download MSVC cpp build tools if you haven't [MSVC Compiler](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+
+In the Windows search bar, look for "x64 Native Tools Command Prompt for VS 2022"
+Verify compiler exists:
+```bash
+cl
+```
+Run once for initialization
+```bash
+powershell -ExecutionPolicy Bypass -File setup.ps1
+```
+### Build (every time you modify code)
+```bash
+cmake --build build --config Debug
+cmake --build build --target 00_init_SDL3
+cmake --build build --target 01_window
+cmake --build build --target 02_vk_instance
+```
+### Copy .dll to .exe folder
+```bash
+powershell -ExecutionPolicy Bypass -File copy-dlls.ps1
+```
+### Run
+```bash
+build\Part_00_init_SDL3\Debug\00_init_SDL3.exe
+build\Part_01_window\Debug\01_window.exe
+build\Part_02_vk_instance\Debug\02_vk_instance.exe
+```
+### Clean
+```bash
+rmdir /s /q build
+```
+---

@@ -1,0 +1,26 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup
+        run: bash setup.sh
+      - name: build
+        run: cmake --build build
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File setup.ps1
+      - name: build
+        run: cmake --build build --config Debug
+      - name: copy dlls
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File copy-dlls.ps1
