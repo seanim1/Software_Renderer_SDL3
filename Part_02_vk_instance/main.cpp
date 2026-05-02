@@ -18,7 +18,13 @@
  */
 
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
 #include <vulkan/vulkan.h>
+#ifdef __APPLE__
+    #define VK_ENABLE_BETA_EXTENSIONS
+    #include <vulkan/vulkan_metal.h>
+    #include <vulkan/vulkan_beta.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -90,6 +96,7 @@ VkInstance create_vulkan_instance() {
         VK_KHR_XLIB_SURFACE_EXTENSION_NAME,
 #elif defined(VK_USE_PLATFORM_METAL_EXT)
         VK_EXT_METAL_SURFACE_EXTENSION_NAME,
+        VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME,
 #endif
     };
 
@@ -176,7 +183,11 @@ VkInstance create_vulkan_instance() {
     VkInstanceCreateInfo instance_create_info = {
         .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
         .pNext = NULL,
+#ifdef VK_USE_PLATFORM_METAL_EXT
+        .flags = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR,
+#else
         .flags = 0,
+#endif
         .pApplicationInfo = &app_info,
         .enabledLayerCount = layer_count,
         .ppEnabledLayerNames = enabled_layers,

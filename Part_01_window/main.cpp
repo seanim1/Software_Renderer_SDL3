@@ -1,4 +1,5 @@
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
 #include <cstdio>
 
 int main(int argc, char* argv[]) {
@@ -8,14 +9,13 @@ int main(int argc, char* argv[]) {
     }
 
     SDL_Window* window = SDL_CreateWindow(
-        "SDL3 Window",
-        800,
-        600,
-        0
+        "Part 02 - Vulkan Instance",
+        800, 600,
+        0  // No special flags
     );
 
     if (!window) {
-        printf("SDL_CreateWindow failed: %s\n", SDL_GetError());
+        fprintf(stderr, "Failed to create window: %s\n", SDL_GetError());
         SDL_Quit();
         return 1;
     }
@@ -38,16 +38,13 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // Clear screen with blue
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         SDL_RenderClear(renderer);
 
-        // Draw red rectangle
         SDL_FRect red_rect = {100, 100, 200, 150};
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &red_rect);
 
-        // Draw green rectangle
         SDL_FRect green_rect = {400, 300, 200, 150};
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderFillRect(renderer, &green_rect);

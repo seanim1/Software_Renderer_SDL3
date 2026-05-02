@@ -1,7 +1,5 @@
 name: build
-
 on: [push, pull_request]
-
 jobs:
   linux:
     runs-on: ubuntu-latest
@@ -11,14 +9,22 @@ jobs:
         run: bash setup_linux.sh
       - name: build
         run: cmake --build build
-
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup
+        run: bash setup_macos.sh
+      - name: verify SDL3
+        run: ls -la third_party/SDL3/build
+      - name: build
+        run: cmake --build build
   windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: install vcpkg deps
-        run: |
-          vcpkg install sdl3:x64-windows vulkan:x64-windows
+        run: vcpkg install sdl3:x64-windows vulkan:x64-windows
         env:
           VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
       - name: configure
